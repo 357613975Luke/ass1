@@ -3,50 +3,99 @@
  * @Author: Luke Z
  * @Date: 2021-04-20 00:20:39
  * @LastEditors: Luke Z
- * @LastEditTime: 2021-04-20 00:31:55
- * @FilePath: /tutorial/ass1/src/App.js
+ * @LastEditTime: 2021-04-20 22:51:59
+ * @FilePath: /ass1-Harry/src/App.js
  */
 import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-const _text = "没有计算";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputOne: 0,
-      inputTwo: 0,
-      displayText: _text,
+      name: "Luke",
+      age: 0,
+      gender: "Male",
+      description: "I am a Coder",
     };
   }
-  componentDidUpdate(preProps, preState) {
-    const { inputOne, inputTwo } = this.state;
-    if (
-      (preState.inputOne !== inputOne || preState.inputTwo !== inputTwo) &&
-      preState.displayText !== _text
-    ) {
-      this.setState({
-        displayText: _text,
-      });
-    }
-  }
+  // componentDidUpdate(preProps, preState) {
+  //   const { inputOne, inputTwo } = this.state;
+  //   if (
+  //     (preState.inputOne !== inputOne || preState.inputTwo !== inputTwo) &&
+  //     preState.displayText !== _text
+  //   ) {
+  //     this.setState({
+  //       displayText: _text,
+  //     });
+  //   }
+  // }
   render() {
-    const { inputOne, inputTwo, displayText } = this.state;
-    const numOneOnChange = (e) => {
-      this.setState({ inputOne: +e.target.value });
+    const { name, age, gender, description } = this.state;
+    const nameOnChange = (e) => {
+      this.setState({ name: e.target.value });
     };
-    const numTwoOnChange = (e) => {
-      this.setState({ inputTwo: +e.target.value });
+    const ageOnChange = (e) => {
+      this.setState({ age: +e.target.value });
     };
-    const getResult = (e) => {
-      this.setState({ displayText: inputOne + inputTwo });
+    const genderOnChange = (e) => {
+      console.log(e);
+      this.setState({ gender: e.target.value });
+    };
+    const desOnChange = (e) => {
+      this.setState({ description: e.target.value });
+    };
+    const submit = () => {
+      const _t = `I am ${name}, ${age} years old, ${gender}, and ${description}`;
+      alert(_t);
     };
     return (
-      <div>
-        <input value={inputOne} onChange={numOneOnChange} />+
-        <input value={inputTwo} onChange={numTwoOnChange} />
-        <button onClick={getResult}>calculate</button>
-        <div>结果:{displayText}</div>
+      <div className="container">
+        <div>
+          {" "}
+          name
+          <input value={name} placeholder="Name" onChange={nameOnChange} />
+        </div>
+        <div>
+          {" "}
+          age
+          <input
+            type="number"
+            name="age"
+            min="1"
+            max="99"
+            value={age}
+            placeholder="Age"
+            onChange={ageOnChange}
+          />
+        </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              name="myRadios"
+              onClick={genderOnChange}
+              value="Male"
+              checked={gender === "Male"}
+            />
+            Male
+          </div>
+          <div>
+            <input
+              checked={gender === "Female"}
+              type="radio"
+              name="myRadios"
+              onClick={genderOnChange}
+              value="Female"
+            />
+            Female
+          </div>
+        </div>
+        <div>
+          <textarea name="des" value={description} onChange={desOnChange} />
+        </div>
+        <button onClick={submit}>Submit</button>
       </div>
     );
   }
